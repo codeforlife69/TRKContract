@@ -53,7 +53,6 @@ contract TRKBEP20 is Context, IBEP20, Ownable {
 
     function getOwner() external view override returns (address) {
         return owner();
-
     }
 
     /**
@@ -64,7 +63,6 @@ contract TRKBEP20 is Context, IBEP20, Ownable {
 
     function name() public view override returns (string memory) {
         return _name;
-
     }
 
     /**
@@ -75,7 +73,6 @@ contract TRKBEP20 is Context, IBEP20, Ownable {
 
     function decimals() public view override returns (uint8) {
         return _decimals;
-
     }
 
     /**
@@ -86,7 +83,6 @@ contract TRKBEP20 is Context, IBEP20, Ownable {
 
     function symbol() public view override returns (string memory) {
         return _symbol;
-
     }
 
     /**
@@ -97,7 +93,6 @@ contract TRKBEP20 is Context, IBEP20, Ownable {
 
     function totalSupply() public view override returns (uint256) {
         return _totalSupply;
-
     }
 
     /**
@@ -129,7 +124,6 @@ contract TRKBEP20 is Context, IBEP20, Ownable {
     function transfer(address recipient, uint256 amount) public override returns (bool) {
         _transfer(_msgSender(), recipient, amount);
         return true;
-
     }
 
     /**
@@ -187,13 +181,8 @@ contract TRKBEP20 is Context, IBEP20, Ownable {
 
     function transferFrom(address sender, address recipient, uint256 amount) public override returns (bool) {
         _transfer(sender, recipient, amount);
-        _approve(
-            sender,
-            _msgSender(),
-            _allowances[sender][_msgSender()].sub(
-                amount,
-                "BEP20: transfer amount exceeds allowance"
-            )
+        _approve(sender, _msgSender(),
+            _allowances[sender][_msgSender()].sub(amount, "BEP20: transfer amount exceeds allowance")
         );
 
         return true;
@@ -260,7 +249,6 @@ contract TRKBEP20 is Context, IBEP20, Ownable {
         _approve(_msgSender(), spender, 
             _allowances[_msgSender()][spender].sub(subtractedValue, "BEP20: decreased allowance below zero")
         );
-
         return true;
     }
 
@@ -404,7 +392,6 @@ contract TRKBEP20 is Context, IBEP20, Ownable {
         _burn(account, amount);
         _approve(account, _msgSender(), 
             _allowances[account][_msgSender()].sub(amount, "BEP20: burn amount exceeds allowance")
-
         );
     }
 }
