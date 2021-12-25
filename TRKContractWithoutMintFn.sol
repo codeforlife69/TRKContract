@@ -1,13 +1,16 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.11;
+pragma solidity 0.8.11;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 
-contract TestContract is ERC20, Ownable, Pausable  {
+contract TRKTestToken is ERC20, Ownable, Pausable  {
+    bool private _disableTransferOwner;
+
     constructor(string memory _name, string memory _symbol) ERC20(_name, _symbol) {
+        _disableTransferOwner = true;
         uint256 _decimals = 18;
         uint256 _totalSupply = 100_000_000 * 10**_decimals;
         _mint(msg.sender, _totalSupply);
@@ -109,7 +112,11 @@ contract TestContract is ERC20, Ownable, Pausable  {
     * @dev Not allow transferring owner role to another in case of the contract is hacked.
     */
     function transferOwnership(address newOwner) public override onlyOwner {
-        revert("Not allow transferring ownership");
+        if (_disableTransferOwner) {
+            revert("Not allow transferring ownership");
+        } else {
+            super.transferOwnership(newOwner);
+        }
     }
 
     /**
