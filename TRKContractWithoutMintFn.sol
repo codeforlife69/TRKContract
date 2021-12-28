@@ -31,45 +31,21 @@ contract TRKTestToken is ERC20, Ownable, Pausable  {
     }
 
     /**
-    * @dev See {ERC20-transfer}.
-    *
-    * Requirements:
-    *
-    * - `recipient` cannot be the zero address.
-    * - the caller must have a balance of at least `amount`.
-    */
-    function transfer(address recipient, uint256 amount) public override whenNotPaused returns (bool) {
-        _transfer(_msgSender(), recipient, amount);
-        return true;
-    }
-
-      /**
-    * @dev See {ERC20-transferFrom}.
-    *
-    * Emits an {Approval} event indicating the updated allowance. This is not
-    * required by the EIP. See the note at the beginning of {BEP20};
-    *
-    * Requirements:
-    * - `sender` and `recipient` cannot be the zero address.
-    * - `sender` must have a balance of at least `amount`.
-    * - the caller must have allowance for `sender`'s tokens of at least
-    * `amount`.
-    */
-    function transferFrom(address sender, address recipient, uint256 amount) public override whenNotPaused returns (bool) {
-        _transfer(sender, recipient, amount);
-        return true;
-    }
-
-    /**
-    * @dev See {ERC20-approve}.
-    *
-    * Requirements:
-    *
-    * - `spender` cannot be the zero address.
-    */
-    function approve(address spender, uint256 amount) public override whenNotPaused returns (bool) {
-        _approve(_msgSender(), spender, amount);
-        return true;
+     * @dev Hook that is called before any transfer of tokens. This includes
+     * minting and burning.
+     *
+     * Calling conditions:
+     *
+     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
+     * will be transferred to `to`.
+     * - when `from` is zero, `amount` tokens will be minted for `to`.
+     * - when `to` is zero, `amount` of ``from``'s tokens will be burned.
+     * - `from` and `to` are never both zero.
+     *
+     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
+     */
+    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override whenNotPaused {
+        super._beforeTokenTransfer(from, to, amount);
     }
 
     /**
