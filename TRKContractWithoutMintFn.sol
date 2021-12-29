@@ -49,42 +49,6 @@ contract TRKTestToken is ERC20, Ownable, Pausable  {
     }
 
     /**
-    * @dev Atomically increases the allowance granted to `spender` by the caller.
-    *
-    * This is an alternative to {approve} that can be used as a mitigation for
-    * problems described in {ERC20-approve}.
-    *
-    * Emits an {Approval} event indicating the updated allowance.
-    *
-    * Requirements:
-    *
-    * - `spender` cannot be the zero address.
-    */
-    function increaseAllowance(address spender, uint256 addedValue) public override whenNotPaused returns (bool) {
-        super.increaseAllowance(spender, addedValue);
-        return true;
-    }
-
-    /**
-    * @dev Atomically decreases the allowance granted to `spender` by the caller.
-    *
-    * This is an alternative to {approve} that can be used as a mitigation for
-    * problems described in {ERC20-approve}.
-    *
-    * Emits an {Approval} event indicating the updated allowance.
-    *
-    * Requirements:
-    *
-    * - `spender` cannot be the zero address.
-    * - `spender` must have allowance for the caller of at least
-    * `subtractedValue`.
-    */
-    function decreaseAllowance(address spender, uint256 subtractedValue) public override whenNotPaused returns (bool) {
-        super.decreaseAllowance(spender, subtractedValue);
-        return true;
-    }
-
-    /**
     * @dev Not allow transferring owner role to another in case of the contract is hacked.
     */
     function transferOwnership(address newOwner) public override onlyOwner {
